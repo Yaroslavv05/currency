@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #005bb5;
+  margin: 0;
+  padding: 20px;
+}
+
+.converter-form {
+  background-color: #ffd700;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
+  color: #005bb5;
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #000;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+input[type="number"][readonly] {
+  background-color: #f9f9f9;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #4c9aff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.reload-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 500; 
+  height: 500;
+}
