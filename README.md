@@ -1,27 +1,24 @@
-# Currency
+Currency Converter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+Это простое веб-приложение для конвертации валют. Оно позволяет пользователю выбрать исходную валюту, целевую валюту и ввести сумму для конвертации. После оно автоматически конвертируется и результат конвертации отобразится на экране.
 
-## Development server
+Установка
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Убедитесь, что у вас установлен Node.js (v12.x.x или выше) и npm (v6.x.x или выше).
+2. Склонируйте репозиторий (https://github.com/Yaroslavv05/currency.git).
+3. В командной строке перейдите в корневую папку приложения (сurrency).
+4. Выполните следующую команду для установки зависимостей:
+   - npm install
 
-## Code scaffolding
+Запуск
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+После успешной установки вы можете запустить приложение с помощью следующей команды:
+   - npm start
 
-## Build
+Приложение будет запущено на локальном сервере и будет доступно по адресу http://localhost:4200/.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Про приложение:
+1. В приложение используется API этого сервиса - https://www.exchangerate-api.com.
+2. В приложение есть все доступный валюты с актуальным курсом по этому API.
+3. В приложение есть красывий дизайн, который радует глаз.
+4. Приложение оптимизирующее под все устройства, на всех устройствах будет удобно пользоваться сайтом.
