@@ -1,11 +1,11 @@
 <div class="converter-form">
   <div class="form-group">
     <label for="amount">Сума (від)</label>
-    <input type="number" [(ngModel)]="input" (input)="Convertation()">
+    <input type="number" [(ngModel)]="input" (input)="convertation()">
   </div>
   <div class="form-group">
     <label for="from">Віддаю</label>
-    <select [(ngModel)]="select_for" (change)="Convertation()">
+    <select [(ngModel)]="select_for" (change)="convertation()">
       <option *ngFor="let currency of conversionData" [value]="currency.currency">{{ currency.currency }}</option>
     </select>
   </div>
@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
     <label for="to">Сума (к)</label>
-    <select [(ngModel)]="select_to" (change)="Convertation()">
+    <select [(ngModel)]="select_to" (change)="convertation()">
       <option *ngFor="let currency of conversionData" [value]="currency.currency">{{ currency.currency }}</option>
     </select>
   </div>

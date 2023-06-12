@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'; // Импортируем оператор map
 
 interface ConversionData {
   currency: string;
@@ -10,40 +13,46 @@ interface ConversionData {
   templateUrl: './CurrencyConverterComponent.component.html',
   styleUrls: ['./CurencyConvertComponent.component.css']
 })
-export class CurrencyConverterComponent {
+export class CurrencyConverterComponent implements OnInit {
   input: number = 0;
   result: number = 0;
   select_for: string = '';
   select_to: string = '';
   conversionData: ConversionData[] = [];
 
-  async ngOnInit() {
-    this.conversionData = await this.getPrice();
-    this.select_for = this.conversionData[0].currency;
-    this.select_to = this.conversionData[0].currency;
-    this.Convertation();
+  constructor(private httpClient: HttpClient) {}
+
+  ngOnInit() {
+    this.getPrice().subscribe((conversionData) => {
+      this.conversionData = conversionData;
+      this.select_for = this.conversionData[0].currency; // Устанавливаем первую валюту из списка по умолчанию
+      this.select_to = this.conversionData[0].currency; // Устанавливаем первую валюту из списка по умолчанию
+      this.convertation(); // Выполняем конвертацию
+    });
   }
 
-  async getPrice(): Promise<ConversionData[]> {
-    const response = await fetch('https://v6.exchangerate-api.com/v6/67085cf2f1fb79a1eaabea0b/latest/USD');
-    const data = await response.json();
-    const conversionData: ConversionData[] = [];
-    for (const currency in data.conversion_rates) {
-      conversionData.push({
-        currency: currency,
-        rate: data.conversion_rates[currency]
-      });
-    }
-    return conversionData;
+  getPrice(): Observable<ConversionData[]> {
+    const url = 'https://v6.exchangerate-api.com/v6/67085cf2f1fb79a1eaabea0b/latest/USD';
+    return this.httpClient.get(url).pipe(
+      map((data: any) => {
+        const conversionData: ConversionData[] = [];
+        for (const currency in data.conversion_rates) {
+          conversionData.push({
+            currency: currency,
+            rate: data.conversion_rates[currency]
+          });
+        }
+        return conversionData;
+      })
+    );
   }
 
-  Convertation() {
-    const fromCurrency = this.conversionData.find(item => item.currency === this.select_for);
-    const toCurrency = this.conversionData.find(item => item.currency === this.select_to);
+  convertation() {
+    const fromCurrency = this.conversionData.find(item => item.currency === this.select_for); // Находим данные выбранной валюты для конвертации
+    const toCurrency = this.conversionData.find(item => item.currency === this.select_to); // Находим данные выбранной валюты для получения результата
     if (fromCurrency && toCurrency) {
-      this.result = this.input * (toCurrency.rate / fromCurrency.rate);
-    } 
-    else {
+      this.result = this.input * (toCurrency.rate / fromCurrency.rate); // Выполняем конвертацию
+    } else {
       this.result = 0;
     }
   }
@@ -52,6 +61,6 @@ export class CurrencyConverterComponent {
     const temp = this.select_for;
     this.select_for = this.select_to;
     this.select_to = temp;
-    this.Convertation();
+    this.convertation();
   }
 }

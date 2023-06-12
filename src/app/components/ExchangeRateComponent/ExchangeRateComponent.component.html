@@ -1,18 +1,13 @@
 <body>
-  <h1 class="h2 mb-4">Конвертер валют</h1>
-  <br>
-  <div class="courses">
-      <div class="course-item">
-          <div class="card card-body">
-              <div class="course-item-title">Курс USD</div>
-              <div class="course-item-value dynamic-value" data-value="USD">{{ resultUSD }}</div>
-          </div>
+    <h1 class="h2 mb-4">Конвертер валют</h1>
+    <br>
+    <div class="courses">
+      <div *ngFor="let exchangeRate of exchangeRates" class="course-item">
+        <div class="card card-body">
+          <div class="course-item-title">Курс {{ exchangeRate.currency }}</div>
+          <div class="course-item-value dynamic-value">{{ exchangeRate.rate }}</div>
+        </div>
       </div>
-      <div class="course-item">
-          <div class="card card-body">
-              <div class="course-item-title">Курс EUR</div>
-              <div class="course-item-value dynamic-value" data-value="EUR">{{ resultEUR }}</div>
-          </div>
-      </div>
-  </div>
-</body>
+    </div>
+  </body>
+  

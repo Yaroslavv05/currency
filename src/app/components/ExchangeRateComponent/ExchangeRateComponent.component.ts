@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+interface ExchangeRate {
+  currency: string;
+  rate: number;
+}
 
 @Component({
   selector: 'app-exchange-rate',
@@ -6,23 +12,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ExchangeRateComponent.component.css']
 })
 export class ExchangeRateComponent implements OnInit {
-  resultUSD: number = 0;
-  resultEUR: number = 0;
+  exchangeRates: ExchangeRate[] = []; // Массив для хранения обменных курсов
+
+  currencies = ['USD', 'EUR', 'GBP']; // Сюда можно вписать любую валюту и она появится в 
+
+  constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
     this.getExchangeRates();
   }
 
-  async getExchangeRates() {
-    //USD
-    const response_USD = await fetch('https://v6.exchangerate-api.com/v6/67085cf2f1fb79a1eaabea0b/latest/USD');
-    const data_USD = await response_USD.json();
-    const result_USD = await data_USD.conversion_rates.UAH;
-    this.resultUSD = result_USD.toFixed(2);
-    //EUR
-    const response_EUR = await fetch('https://v6.exchangerate-api.com/v6/67085cf2f1fb79a1eaabea0b/latest/EUR');
-    const data_EUR = await response_EUR.json();
-    const result_EUR = await data_EUR.conversion_rates.UAH;
-    this.resultEUR = result_EUR.toFixed(2);
+  getExchangeRates() {
+    this.currencies.forEach(currency => {
+      this.getExchangeRate(currency).subscribe((data: any) => {
+        const rate = data.conversion_rates.UAH.toFixed(2); // Извлекаем обменный курс для UAH из данных ответа и форматируем его до 2 десятичных знаков
+        this.exchangeRates.push({ currency, rate });  // Добавляем валюту и соответствующий ей обменный курс в массив 'exchangeRates'
+      });
+    });
+  }
+
+  getExchangeRate(currency: string) {
+    const url = `https://v6.exchangerate-api.com/v6/67085cf2f1fb79a1eaabea0b/latest/${currency}`;
+    return this.httpClient.get(url);
   }
 }
