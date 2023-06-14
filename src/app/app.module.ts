@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ExchangeRateComponent} from './components/ExchangeRateComponent/ExchangeRateComponent.component'
-import {CurrencyConverterComponent} from './components/CurrencyConverterComponent/CurrencyConverterComponent.component'
+import {ExchangeRateComponent} from './components/exchangeRate/exchangeRate.component'
+import {CurrencyConverterComponent} from './components/currencyConverter/currencyConverter.component'
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
